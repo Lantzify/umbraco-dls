@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dls", "dls\dls.csproj", "{3C0FA8F4-60E4-4B37-ADF4-EF8ABE12FBF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dls.Web", "dls.Web\dls.Web.csproj", "{A67153C1-52A2-489B-BC8F-B6165FA438C5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3C0FA8F4-60E4-4B37-ADF4-EF8ABE12FBF0} = {3C0FA8F4-60E4-4B37-ADF4-EF8ABE12FBF0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C0FA8F4-60E4-4B37-ADF4-EF8ABE12FBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C0FA8F4-60E4-4B37-ADF4-EF8ABE12FBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C0FA8F4-60E4-4B37-ADF4-EF8ABE12FBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C0FA8F4-60E4-4B37-ADF4-EF8ABE12FBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A67153C1-52A2-489B-BC8F-B6165FA438C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A67153C1-52A2-489B-BC8F-B6165FA438C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A67153C1-52A2-489B-BC8F-B6165FA438C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A67153C1-52A2-489B-BC8F-B6165FA438C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84382BF5-3C18-445A-BC3E-25F45E7C1C2F}
+	EndGlobalSection
+EndGlobal
