@@ -20,7 +20,7 @@ This is package  works with the following datatypes:
 * Multiple media picker
 
 ## Web login
-Username: admin@admin.com 
+Username: admin@admin.com <br />
 Password: 123456789
 
 ## To-Do
