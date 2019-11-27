@@ -1,6 +1,6 @@
 # DLS - Dynamic loginscreen
 
-This is package updates umbracos loginscreen background.
+This is package dynamicly updates umbracos loginscreen background.
 
 ## Setup
 After installing the package, add the follwing keys to web.config.
