@@ -327,6 +327,12 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
+    <ItemGroup>
+    <ProjectReference Include="..\dls\dls.csproj">
+      <Project>{8517360a-4fcd-4fd8-9838-4db240a55027}</Project>
+      <Name>Dls</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -362,6 +368,9 @@
     <Error Condition="!Exists('..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets'))" />
   </Target>
   <Import Project="..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets')" />
+   <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /S /D "$(SolutionDir)\dls\App_Plugins\*" "$(ProjectDir)\App_Plugins"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
