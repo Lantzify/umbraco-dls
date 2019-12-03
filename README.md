@@ -1,6 +1,6 @@
 # DLS - Dynamic loginscreen
 
-This is package updates umbracos loginscreen background.
+This is package dynamicly updates umbracos loginscreen background.
 
 ## Setup
 After installing the package, add the follwing keys to web.config.
@@ -20,7 +20,7 @@ This is package  works with the following datatypes:
 * Multiple media picker
 
 ## Web login
-Username: admin@admin.com 
+Username: admin@admin.com <br />
 Password: 123456789
 
 ## To-Do
