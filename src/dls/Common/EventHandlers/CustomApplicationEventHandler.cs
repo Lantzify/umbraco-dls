@@ -7,6 +7,8 @@ using Umbraco.Core.Services;
 using Umbraco.Core.Persistence;
 using System.Web;
 using System.Configuration;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace umbraco_dls.Common.EventHandlers
 {
@@ -37,20 +39,81 @@ namespace umbraco_dls.Common.EventHandlers
 
             var savedNode = e.SavedEntities
                 .Where(c => c.Id == settingsNode?.Id)
-                .FirstOrDefault() as IContent;
+                .FirstOrDefault();
 
             if (savedNode == null) return;
 
-            var logoPicker = string.IsNullOrEmpty("logoPickerAlias") ? umbracoHelper.TypedMedia(logoPickerAlias) : umbracoHelper.TypedMedia(logoPickerAlias);
-
-            if (logoPicker == null)
-                ThrowInvalidAliasError(e, "Logo");
+            var css = "";
 
 
+            //Logotype
+            if (!string.IsNullOrEmpty(logoPickerAlias))
+            {
+                var property = savedNode.Properties[logoPickerAlias];
+               
+                //Types uid url
+                var typedLogo = umbracoHelper.TypedMedia(property.Value);
 
+                if (typedLogo != null)
+                    css += ".login-overlay__logo img{content:url('" + typedLogo.Url + "'); height: 40px;}";
+                else
+                    ThrowInvalidAliasError(e, "Logotype");
+            }
+
+            //Background
+            if (!string.IsNullOrEmpty(backgroundPickerAlias))
+            {
+                //Get properties
+                var properties = savedNode.Properties[backgroundPickerAlias];
+                var propertyEditorAlias = properties.PropertyType.PropertyEditorAlias;
+                var uidBackgroundUrl = "";
+
+
+                if (propertyEditorAlias == "Umbraco.NestedContent")
+                {
+                    var nestedContentItems = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(savedNode.GetValue<string>(backgroundPickerAlias));
+
+                    foreach (var nestedContentItem in nestedContentItems)
+                    {
+                        var uidMedia = nestedContentItem.Where(x => $"{x.Value}".Contains("media")).FirstOrDefault();
+
+                        if (uidMedia.Value != null)
+                        {
+                            uidBackgroundUrl = $"{uidMedia.Value}";
+                            break;
+                        }
+                    }
+
+                    if (uidBackgroundUrl == null)
+                    {
+                        e.CancelOperation(new EventMessage("No image", "No image was found in the neasted content.", EventMessageType.Error));
+                        return;
+                    }
+                }
+                else
+                {
+                    //Get uid url
+                    uidBackgroundUrl = $"{properties.Value}";
+                }
+
+                //Types uid url
+                var typedBackground = umbracoHelper.TypedMedia(uidBackgroundUrl.Split(',').FirstOrDefault());
+
+                if (typedBackground != null)
+                    css += ".login-overlay__background-image { background:url('" + typedBackground.Url + "') !important;background-position: 50% !important;background-repeat: no-repeat !important;background-size: cover !important;opacity:0.5 !important;}";
+                else
+                    ThrowInvalidAliasError(e, "Background");
+            }
+
+            //Path to css file
+            var path = HttpContext.Current.Server.MapPath("/App_Plugins/umbraco-dls/css/login.css");
+
+            //Writes to css file
+            System.IO.File.WriteAllText(path, css);
         }
 
-        private void ThrowInvalidAliasError(SaveEventArgs<IContent> e, string pickerTitle){
+        private void ThrowInvalidAliasError(SaveEventArgs<IContent> e, string pickerTitle)
+        {
             e.CancelOperation(new EventMessage("Invalid alias", $"{pickerTitle} alias dosen't exist. Enter a valid alias.", EventMessageType.Error));
         }
     }
