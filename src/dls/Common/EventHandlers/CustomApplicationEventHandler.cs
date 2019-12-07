@@ -106,7 +106,7 @@ namespace umbraco_dls.Common.EventHandlers
             }
 
             //Path to css file
-            var path = HttpContext.Current.Server.MapPath("/App_Plugins/umbraco-dls/css/login.css");
+            var path = HttpContext.Current.Server.MapPath("/App_Plugins/DLS/css/login.css");
 
             //Writes to css file
             System.IO.File.WriteAllText(path, css);
